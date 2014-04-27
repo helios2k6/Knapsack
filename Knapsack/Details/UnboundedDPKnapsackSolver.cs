@@ -52,11 +52,6 @@ namespace Knapsack.Details
 		/// </returns>
 		public IEnumerable<IItem> Solve(IEnumerable<IItem> items, long maxWeight)
 		{
-			return MaxValueDP(items, maxWeight);
-		}
-
-		private static IEnumerable<IItem> MaxValueDP(IEnumerable<IItem> items, long maxWeight)
-		{
 			IList<IItem> itemList = items.ToList();
 
 			var smallerSolutionList = new OneDimensionalSparseArray<long>();
@@ -108,6 +103,15 @@ namespace Knapsack.Details
 			return knapsackItems;
 		}
 
+		/// <summary>
+		/// Solves the unbounded knapsack.
+		/// </summary>
+		/// <param name="maxWeight">The maximum weight.</param>
+		/// <param name="itemList">The item list.</param>
+		/// <param name="smallerSolutionList">The smaller solution list.</param>
+		/// <param name="intermediateSolutionList">The intermediate solution list.</param>
+		/// <param name="memoList">The memo list.</param>
+		/// <param name="keepMatrix">The keep matrix.</param>
 		private static void SolveUnboundedKnapsack(
 			long maxWeight,
 			IList<IItem> itemList,

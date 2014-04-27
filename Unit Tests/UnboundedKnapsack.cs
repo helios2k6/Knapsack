@@ -32,5 +32,31 @@ namespace UnitTests
 				Assert.AreEqual(5, result.Weight);
 			}
 		}
+
+		/// <summary>
+		/// Tests that the solver chooses none of the numbers
+		/// </summary>
+		[TestMethod]
+		public void PickNone()
+		{
+			var solver = new UnboundedDPKnapsackSolver();
+			IEnumerable<int> seq = new[] { 10, 20, 30, };
+			IEnumerable<IItem> items = seq.Select(item => new IntItem(item));
+			IEnumerable<IItem> knapsack = solver.Solve(items, 0);
+
+			Assert.AreEqual(0, knapsack.Count());
+		}
+
+		[TestMethod]
+		public void PickMany()
+		{
+			var solver = new UnboundedDPKnapsackSolver();
+			IEnumerable<int> seq = new[] { 1, 2, 3, 4, 5 };
+			IEnumerable<IItem> items = seq.Select(item => new IntItem(item));
+			IEnumerable<IItem> knapsack = solver.Solve(items, 10);
+
+			Assert.AreEqual(10, knapsack.Sum(item => item.Value));
+			Assert.AreEqual(10, knapsack.Sum(item => item.Weight));
+		}
 	}
 }
