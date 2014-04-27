@@ -22,7 +22,9 @@
  * THE SOFTWARE.
  */
 
+using Knapsack.Details.Utils;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Knapsack.Details
 {
@@ -40,19 +42,19 @@ namespace Knapsack.Details
 			long maxWeight)
 		{
 			int itemCount = itemList.Count;
-			var setOfItems = new HashSet<IItem>();
+			var knapsackItems = Enumerable.Empty<IItem>();
 			long upperBound = maxWeight;
 			for (int i = itemCount; i > 0; i--)
 			{
 				if (keepMatrix[i, upperBound])
 				{
 					IItem currentItem = itemList[i - 1];
-					setOfItems.Add(currentItem);
+					knapsackItems = knapsackItems.Append(currentItem);
 					upperBound -= currentItem.Weight;
 				}
 			}
 
-			return setOfItems;
+			return knapsackItems;
 		}
 	}
 }

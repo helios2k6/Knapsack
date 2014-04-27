@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knapsack", "Knapsack\Knapsack.csproj", "{0AA7367E-BCA2-4176-BEF1-192825C0892A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit Tests", "Unit Tests\Unit Tests.csproj", "{FF57FC74-2038-4707-9589-44521ECD105F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0AA7367E-BCA2-4176-BEF1-192825C0892A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AA7367E-BCA2-4176-BEF1-192825C0892A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AA7367E-BCA2-4176-BEF1-192825C0892A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF57FC74-2038-4707-9589-44521ECD105F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF57FC74-2038-4707-9589-44521ECD105F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF57FC74-2038-4707-9589-44521ECD105F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF57FC74-2038-4707-9589-44521ECD105F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
