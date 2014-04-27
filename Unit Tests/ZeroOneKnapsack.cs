@@ -14,35 +14,6 @@ namespace UnitTests
 	public sealed class ZeroOneKnapsack
 	{
 		/// <summary>
-		/// Integer IItem wrapper
-		/// </summary>
-		private sealed class IntItem : IItem
-		{
-			public IntItem(int item)
-			{
-				Item = item;
-			}
-
-			public int Item { get; set; }
-
-			/// <summary>
-			/// Gets the value of the item
-			/// </summary>
-			public long Value
-			{
-				get { return Item; }
-			}
-
-			/// <summary>
-			/// Gets the weight of the item
-			/// </summary>
-			public long Weight
-			{
-				get { return Item; }
-			}
-		}
-
-		/// <summary>
 		/// Tests the zero one dp solver.
 		/// </summary>
 		[TestMethod]

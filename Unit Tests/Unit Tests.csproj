@@ -50,6 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="IntItem.cs" />
+    <Compile Include="UnboundedKnapsack.cs" />
     <Compile Include="ZeroOneKnapsack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

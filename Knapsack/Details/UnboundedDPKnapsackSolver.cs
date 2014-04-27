@@ -23,6 +23,7 @@
  */
 
 using Knapsack.Details.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,57 +32,132 @@ namespace Knapsack.Details
 	/// <summary>
 	/// A DP Knapsack Solver for the unbounded knapsack case
 	/// </summary>
-	public sealed class UnboundedDPKnapsackSolver : DPKnapsackSolverBase
+	public sealed class UnboundedDPKnapsackSolver : IKnapsackSolver
 	{
 		/// <summary>
 		/// Gets the type of Knapsack Problem this solver solves
 		/// </summary>
-		public override ProblemTrait Trait
+		public ProblemTrait Trait
 		{
 			get { return ProblemTrait.Unbounded; }
 		}
 
 		/// <summary>
-		/// Package the results into an IEnumerable{T}
+		/// Solves the Knapsack problem
 		/// </summary>
-		/// <param name="items">The items to package</param>
-		/// <param name="valueMatrix">The value matrix</param>
-		/// <param name="keepMatrix">The keep matrix</param>
-		/// <param name="maxWeight">The max weight</param>
+		/// <param name="items">The items to put into the knapsack</param>
+		/// <param name="maxWeight">The maximum weight the knapsack can hold</param>
 		/// <returns>
-		/// The IEnumerable{T} of items
+		/// The items to put into the knapsack
 		/// </returns>
-		protected override IEnumerable<IItem> Package(
-			IList<IItem> items,
-			TwoDimensionalSparseMatrix<long> valueMatrix,
+		public IEnumerable<IItem> Solve(IEnumerable<IItem> items, long maxWeight)
+		{
+			return MaxValueDP(items, maxWeight);
+		}
+
+		private static IEnumerable<IItem> MaxValueDP(IEnumerable<IItem> items, long maxWeight)
+		{
+			IList<IItem> itemList = items.ToList();
+
+			var smallerSolutionList = new OneDimensionalSparseArray<long>();
+			var intermediateSolution = new OneDimensionalSparseArray<long>();
+			var memoList = new OneDimensionalSparseArray<long>();
+			var keepMatrix = new TwoDimensionalSparseMatrix<bool>();
+
+			SolveUnboundedKnapsack(maxWeight, itemList, ref smallerSolutionList, ref intermediateSolution, ref memoList, ref keepMatrix);
+
+			return Package(itemList, keepMatrix, maxWeight);
+		}
+
+		/// <summary>
+		/// Packages the specified item list.
+		/// </summary>
+		/// <param name="itemList">The item list.</param>
+		/// <param name="keepMatrix">The keep matrix.</param>
+		/// <param name="maxWeight">The maximum weight.</param>
+		/// <returns>The items packed up into a knapsack</returns>
+		private static IEnumerable<IItem> Package(
+			IList<IItem> itemList,
 			TwoDimensionalSparseMatrix<bool> keepMatrix,
 			long maxWeight)
 		{
-			IEnumerable<IItem> package = Enumerable.Empty<IItem>();
-
-			/*
-			 * 1. Find the max value at the max weight
-			 * 2. Figure out which items added to the max value
-			 * 3. Count them
-			 * 4. Add them to the bag
-			 */
-			int itemCount = items.Count;
-			for (var i = 1; i <= itemCount; i++)
+			int itemCount = itemList.Count;
+			var knapsackItems = Enumerable.Empty<IItem>();
+			long currentWeightToCheck = maxWeight;
+			while(true)
 			{
-				if (keepMatrix[i, maxWeight])
+				bool foundItem = false;
+				for (int itemIndex = 0; itemIndex < itemList.Count; itemIndex++)
 				{
-					//Count how many times we should add it to the sack
-					for (var j = 0; j <= maxWeight; j++)
+					if(keepMatrix[itemIndex, currentWeightToCheck])
 					{
-						if (keepMatrix[i, j])
-						{
-							package = package.Append(items[i - 1]); //The index for the item array is off by one 
-						}
+						IItem itemToTake = itemList[itemIndex];
+						knapsackItems = knapsackItems.Append(itemToTake);
+						currentWeightToCheck -= itemToTake.Weight;
+						foundItem = true;
+						break;
 					}
+				}
+
+				if (foundItem == false)
+				{
+					break;
 				}
 			}
 
-			return package;
+			return knapsackItems;
+		}
+
+		private static void SolveUnboundedKnapsack(
+			long maxWeight,
+			IList<IItem> itemList,
+			ref OneDimensionalSparseArray<long> smallerSolutionList,
+			ref OneDimensionalSparseArray<long> intermediateSolutionList,
+			ref OneDimensionalSparseArray<long> memoList,
+			ref TwoDimensionalSparseMatrix<bool> keepMatrix)
+		{
+			for (long weight = 1; weight <= maxWeight; weight++)
+			{
+				for (int itemIndex = 0; itemIndex < itemList.Count; itemIndex++)
+				{
+					IItem currentItem = itemList[itemIndex];
+					if (weight >= currentItem.Weight)
+					{
+						smallerSolutionList[itemIndex] = memoList[weight - currentItem.Weight];
+					}
+					else
+					{
+						smallerSolutionList[itemIndex] = 0;
+					}
+				}
+
+				for (int itemIndex = 0; itemIndex < itemList.Count; itemIndex++)
+				{
+					IItem currentItem = itemList[itemIndex];
+					if (weight >= currentItem.Weight)
+					{
+						intermediateSolutionList[itemIndex] = smallerSolutionList[itemIndex] + currentItem.Value;
+					}
+					else
+					{
+						intermediateSolutionList[itemIndex] = 0;
+					}
+				}
+
+				long fileIndexOfMaxValue = 0;
+				memoList[weight] = intermediateSolutionList[0];
+
+				for (int itemIndex = 1; itemIndex < itemList.Count; itemIndex++)
+				{
+					if (intermediateSolutionList[itemIndex] > memoList[weight])
+					{
+						memoList[weight] = intermediateSolutionList[itemIndex];
+						fileIndexOfMaxValue = itemIndex;
+					}
+				}
+
+				keepMatrix[fileIndexOfMaxValue, weight] = true;
+			}
 		}
 	}
 }

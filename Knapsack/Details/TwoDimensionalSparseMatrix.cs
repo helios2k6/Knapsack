@@ -42,9 +42,26 @@ namespace Knapsack.Details
 		#endregion
 
 		#region public interface
-		public IEnumerable GetEnumerable()
+		/// <summary>
+		/// Gets the number of rows
+		/// </summary>
+		/// <value>
+		/// The number of rows
+		/// </value>
+		public long NumRows
 		{
-			return _weightMatrix;
+			get { return _virtualRowCount; }
+		}
+
+		/// <summary>
+		/// Gets the number of columns
+		/// </summary>
+		/// <value>
+		/// The number of columes
+		/// </value>
+		public long NumCols
+		{
+			get { return _virtualColCount; }
 		}
 
 		/// <summary>
