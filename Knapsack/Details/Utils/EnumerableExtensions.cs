@@ -28,42 +28,42 @@ using System.Linq;
 
 namespace Knapsack.Details.Utils
 {
-	/// <summary>
-	/// IEnumerable extensions
-	/// </summary>
-	public static class EnumerableExtensions
-	{
-		/// <summary>
-		/// Append an item to the end of an IEnumerable{T}
-		/// </summary>
-		/// <typeparam name="T">The type of item to append</typeparam>
-		/// <param name="this">The IEnumerable{T}</param>
-		/// <param name="item">The item itself</param>
-		/// <returns>An IEnumerable{T} with the appended item</returns>
-		public static IEnumerable<T> Append<T>(this IEnumerable<T> @this, T item)
-		{
-			if (@this == null)
-			{
-				throw new ArgumentNullException();
-			}
+    /// <summary>
+    /// IEnumerable extensions
+    /// </summary>
+    public static class EnumerableExtensions
+    {
+        /// <summary>
+        /// Append an item to the end of an IEnumerable{T}
+        /// </summary>
+        /// <typeparam name="T">The type of item to append</typeparam>
+        /// <param name="this">The IEnumerable{T}</param>
+        /// <param name="item">The item itself</param>
+        /// <returns>An IEnumerable{T} with the appended item</returns>
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> @this, T item)
+        {
+            if (@this == null)
+            {
+                throw new ArgumentNullException();
+            }
 
-			return @this.Concat(item.AsEnumerable());
-		}
+            return @this.Concat(item.AsEnumerable());
+        }
 
-		/// <summary>
-		/// Turn an item into an IEnumerable{T}
-		/// </summary>
-		/// <typeparam name="T">The type of item</typeparam>
-		/// <param name="t">The item to turn into an IEnumerable{T}</param>
-		/// <returns>An IEnumerable{T} with the passed item as its only element</returns>
-		public static IEnumerable<T> AsEnumerable<T>(this T t)
-		{
-			if(EqualityComparer<T>.Default.Equals(t, default(T)))
-			{
-				throw new ArgumentNullException();
-			}
+        /// <summary>
+        /// Turn an item into an IEnumerable{T}
+        /// </summary>
+        /// <typeparam name="T">The type of item</typeparam>
+        /// <param name="t">The item to turn into an IEnumerable{T}</param>
+        /// <returns>An IEnumerable{T} with the passed item as its only element</returns>
+        public static IEnumerable<T> AsEnumerable<T>(this T t)
+        {
+            if (EqualityComparer<T>.Default.Equals(t, default(T)))
+            {
+                throw new ArgumentNullException();
+            }
 
-			yield return t;
-		}
-	}
+            yield return t;
+        }
+    }
 }

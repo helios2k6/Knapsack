@@ -58,8 +58,8 @@ namespace Knapsack.Details
 
             IList<IItem> itemList = items.ToList();
 
-            var valueMatrix = new TwoDimensionalSparseMatrix<long>();
-            var keepMatrix = new TwoDimensionalSparseMatrix<bool>();
+            var valueMatrix = new InfiniteTwoDimensionalSparseMatrix<long>();
+            var keepMatrix = new InfiniteTwoDimensionalSparseMatrix<bool>();
 
             int itemCount = itemList.Count;
 
@@ -79,19 +79,19 @@ namespace Knapsack.Details
         private static void SolveKnapsackProblem(
             long maxWeight,
             IList<IItem> itemList,
-            TwoDimensionalSparseMatrix<long> valueMatrix,
-            TwoDimensionalSparseMatrix<bool> keepMatrix,
+            InfiniteTwoDimensionalSparseMatrix<long> valueMatrix,
+            InfiniteTwoDimensionalSparseMatrix<bool> keepMatrix,
             int itemCount)
         {
-            for (var currentFileIndex = 1; currentFileIndex <= itemCount; currentFileIndex++)
+            for (int currentFileIndex = 1; currentFileIndex <= itemCount; currentFileIndex++)
             {
-                var weightAtPreviousIndex = itemList[currentFileIndex - 1].Weight;
-                var valueAtPreviousIndex = itemList[currentFileIndex - 1].Value;
+                long weightAtPreviousIndex = itemList[currentFileIndex - 1].Weight;
+                long valueAtPreviousIndex = itemList[currentFileIndex - 1].Value;
 
-                for (var currentWeight = 0; currentWeight <= maxWeight; currentWeight++)
+                for (int currentWeight = 0; currentWeight <= maxWeight; currentWeight++)
                 {
-                    var newProspectiveValue = valueAtPreviousIndex + valueMatrix[currentFileIndex - 1, currentWeight - weightAtPreviousIndex];
-                    var oldValue = valueMatrix[currentFileIndex - 1, currentWeight];
+                    long newProspectiveValue = valueAtPreviousIndex + valueMatrix[currentFileIndex - 1, currentWeight - weightAtPreviousIndex];
+                    long oldValue = valueMatrix[currentFileIndex - 1, currentWeight];
                     if (weightAtPreviousIndex <= currentWeight && newProspectiveValue > oldValue)
                     {
                         valueMatrix[currentFileIndex, currentWeight] = newProspectiveValue;
@@ -114,7 +114,7 @@ namespace Knapsack.Details
         /// <returns>The items packed up into a knapsack</returns>
         private static IEnumerable<IItem> Package(
             IList<IItem> itemList,
-            TwoDimensionalSparseMatrix<bool> keepMatrix,
+            InfiniteTwoDimensionalSparseMatrix<bool> keepMatrix,
             long maxWeight)
         {
             int itemCount = itemList.Count;

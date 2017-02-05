@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Details\InfiniteTwoDimensionalSparseMatrix.cs" />
     <Compile Include="Details\OneDimensionalSparseArray.cs" />
     <Compile Include="Details\UnboundedDPKnapsackSolver.cs" />
     <Compile Include="Details\Utils\EnumerableExtensions.cs" />

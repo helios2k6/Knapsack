@@ -66,16 +66,16 @@ namespace Knapsack.Details
         /// <summary>
         /// The index into this 2-Dimensional Matrix
         /// </summary>
-        /// <param name="i">The row</param>
-        /// <param name="j">The column</param>
+        /// <param name="rowIndex">The row</param>
+        /// <param name="colIndex">The column</param>
         /// <returns>The T that is at the specified indices, or default(T) if it doesn't exist</returns>
-        public T this[long i, long j]
+        public T this[long rowIndex, long colIndex]
         {
             get
             {
                 IDictionary<long, T> matrixRow;
                 T rowValue;
-                if (_weightMatrix.TryGetValue(i, out matrixRow) && matrixRow.TryGetValue(j, out rowValue))
+                if (_weightMatrix.TryGetValue(rowIndex, out matrixRow) && matrixRow.TryGetValue(colIndex, out rowValue))
                 {
                     return rowValue;
                 }
@@ -84,19 +84,19 @@ namespace Knapsack.Details
             set
             {
                 //Check row count
-                if (_virtualRowCount <= i) { _virtualRowCount = i + 1; }
+                if (_virtualRowCount <= rowIndex) { _virtualRowCount = rowIndex + 1; }
 
                 //Check col count
-                if (_virtualColCount <= j) { _virtualColCount = j + 1; }
+                if (_virtualColCount <= colIndex) { _virtualColCount = colIndex + 1; }
 
                 IDictionary<long, T> row;
-                if (!_weightMatrix.TryGetValue(i, out row))
+                if (!_weightMatrix.TryGetValue(rowIndex, out row))
                 {
                     row = new Dictionary<long, T>();
-                    _weightMatrix[i] = row;
+                    _weightMatrix[rowIndex] = row;
                 }
 
-                row[j] = value;
+                row[colIndex] = value;
             }
         }
 
