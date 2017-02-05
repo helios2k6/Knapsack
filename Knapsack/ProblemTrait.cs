@@ -24,47 +24,47 @@
 
 namespace Knapsack
 {
-	/// <summary>
-	/// Represents the type of Knapsack problem
-	/// </summary>
-	public sealed class ProblemTrait
-	{
-		#region private fields
-		private readonly string _description;
-		#endregion
+    /// <summary>
+    /// Represents the type of Knapsack problem
+    /// </summary>
+    public sealed class ProblemTrait
+    {
+        #region private fields
+        private readonly string _description;
+        #endregion
 
-		#region private ctor
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ProblemTrait"/> class.
-		/// </summary>
-		/// <param name="description">The description.</param>
-		private ProblemTrait(string description)
-		{
-			_description = description;
-		}
-		#endregion
+        #region private ctor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProblemTrait"/> class.
+        /// </summary>
+        /// <param name="description">The description.</param>
+        private ProblemTrait(string description)
+        {
+            _description = description;
+        }
+        #endregion
 
-		#region public static readonly fields
-		/// <summary>
-		/// The 0/1 Knapsack Problem Trait
-		/// </summary>
-		public static readonly ProblemTrait ZeroOne = new ProblemTrait("0/1 Knapsack Problem");
+        #region public static readonly fields
+        /// <summary>
+        /// The 0/1 Knapsack Problem Trait
+        /// </summary>
+        public static readonly ProblemTrait ZeroOne = new ProblemTrait("0/1 Knapsack Problem");
 
-		/// <summary>
-		/// The Unbounded Knapsack Problem Trait
-		/// </summary>
-		public static readonly ProblemTrait Unbounded = new ProblemTrait("Unbounded Knapsack Problem");
-		#endregion
+        /// <summary>
+        /// The Unbounded Knapsack Problem Trait
+        /// </summary>
+        public static readonly ProblemTrait Unbounded = new ProblemTrait("Unbounded Knapsack Problem");
+        #endregion
 
-		#region public methods
-		/// <summary>
-		/// Return the string representation of this object
-		/// </summary>
-		/// <returns>The string representation</returns>
-		public override string ToString()
-		{
-			return _description;
-		}
-		#endregion
-	}
+        #region public methods
+        /// <summary>
+        /// Return the string representation of this object
+        /// </summary>
+        /// <returns>The string representation</returns>
+        public override string ToString()
+        {
+            return _description;
+        }
+        #endregion
+    }
 }

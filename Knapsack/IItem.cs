@@ -22,23 +22,21 @@
  * THE SOFTWARE.
  */
 
-
-using System;
 namespace Knapsack
 {
-	/// <summary>
-	/// Represents an item that can be put into a knapsack
-	/// </summary>
-	public interface IItem
-	{
-		/// <summary>
-		/// Gets the value of the item
-		/// </summary>
-		long Value { get; }
+    /// <summary>
+    /// Represents an item that can be put into a knapsack
+    /// </summary>
+    public interface IItem
+    {
+        /// <summary>
+        /// Gets the value of the item
+        /// </summary>
+        long Value { get; }
 
-		/// <summary>
-		/// Gets the weight of the item
-		/// </summary>
-		long Weight { get; }
-	}
+        /// <summary>
+        /// Gets the weight of the item
+        /// </summary>
+        long Weight { get; }
+    }
 }

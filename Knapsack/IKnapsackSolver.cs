@@ -22,30 +22,26 @@
  * THE SOFTWARE.
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Knapsack
 {
-	/// <summary>
-	/// An object that can solve the knapsack problem
-	/// </summary>
-	public interface IKnapsackSolver
-	{
-		/// <summary>
-		/// Gets the type of Knapsack Problem this solver solves
-		/// </summary>
-		ProblemTrait Trait { get; }
+    /// <summary>
+    /// An object that can solve the knapsack problem
+    /// </summary>
+    public interface IKnapsackSolver
+    {
+        /// <summary>
+        /// Gets the type of Knapsack Problem this solver solves
+        /// </summary>
+        ProblemTrait Trait { get; }
 
-		/// <summary>
-		/// Solves the Knapsack problem 
-		/// </summary>
-		/// <param name="items">The items to put into the knapsack</param>
-		/// <param name="maxWeight">The maximum weight the knapsack can hold</param>
-		/// <returns>The items to put into the knapsack</returns>
-		IEnumerable<IItem> Solve(IEnumerable<IItem> items, long maxWeight);
-	}
+        /// <summary>
+        /// Solves the Knapsack problem 
+        /// </summary>
+        /// <param name="items">The items to put into the knapsack</param>
+        /// <param name="maxWeight">The maximum weight the knapsack can hold</param>
+        /// <returns>The items to put into the knapsack</returns>
+        IEnumerable<IItem> Solve(IEnumerable<IItem> items, long maxWeight);
+    }
 }
